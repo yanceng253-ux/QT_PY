@@ -28,21 +28,15 @@ class IntegratedSystem(QMainWindow):
         # 创建标签页控件
         self.tabs = QTabWidget()
         
-        # 创建车牌管理标签页
-        self.create_plate_tab()
-        
-        # 创建道闸控制标签页
-        self.create_gate_tab()
-        
         # 将标签页添加到主布局
-        self.tabs.addTab(self.plate_tab, "车牌信息管理")
-        self.tabs.addTab(self.gate_tab, "道闸控制")
+        self.tabs.addTab(self.create_plate_tab(), "车牌信息管理")
+        self.tabs.addTab(self.create_gate_tab(), "道闸控制")
         main_layout.addWidget(self.tabs)
 
     def create_plate_tab(self):
         """创建车牌信息管理标签页内容"""
-        self.plate_tab = QWidget()
-        plate_layout = QVBoxLayout(self.plate_tab)
+        plate_tab = QWidget()
+        plate_layout = QVBoxLayout(plate_tab)
 
         # 车牌录入区域
         input_layout = QHBoxLayout()
@@ -64,11 +58,12 @@ class IntegratedSystem(QMainWindow):
         plate_layout.addLayout(input_layout)
         plate_layout.addWidget(self.plate_list)
         plate_layout.addWidget(self.refresh_btn)
+        return plate_tab
 
     def create_gate_tab(self):
         """创建道闸控制标签页内容"""
-        self.gate_tab = QWidget()
-        gate_layout = QVBoxLayout(self.gate_tab)
+        gate_tab = QWidget()
+        gate_layout = QVBoxLayout(gate_tab)
 
         # 道闸控制按钮与状态
         self.open_btn = QPushButton("道闸开启")
@@ -84,6 +79,7 @@ class IntegratedSystem(QMainWindow):
         gate_layout.addWidget(self.open_btn)
         gate_layout.addWidget(self.close_btn)
         gate_layout.addWidget(self.status_label)
+        return gate_tab
 
     def init_database(self):
         """初始化车牌数据库"""
